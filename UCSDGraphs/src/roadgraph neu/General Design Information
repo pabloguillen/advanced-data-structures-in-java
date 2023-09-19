@@ -1,0 +1,70 @@
+Overall Design Justification (4-6 sentences): 
+
+I designed the graph representation by providing one general class MapGraph and two additional classes called "Intersection" and "Road". The class "Intersection" represents the nodes and the latter one the edges of the graph.
+The MapGraph class combines the classes representing the nodes and edges into a general graph structure by unifying all the relevant methods for data manipulation and access.
+Thus is represents the interface of the graph representation.
+This representation allows efficient modifications of the nodes and the edges (e.g. adding nodes or edges) and at the same time access the respective information easily. 
+
+
+Class: MapGraph
+
+Modifications made to MapGraph (what and why):
+
+1. Member variables:
+
+I added two member variables: 
+
+The first one is called nodes which is keeping track of all the nodes within the graph.
+It maps each location (GeographicPoint) with an Intersection object. This helps to look up the Intersection (node) objects 
+based on the location. The HashMap structure makes this look up very efficient. Further, it is very easy and efficient to get 
+the overall number of nodes.
+
+The second one is called streets which is keeping track of all the edges (streets) within the graph.
+The HashSet contains Road objects which describe the edges and their respective characteristics in the graph.
+The main purpose of this member variable is to get the overall number of edges in the graph.
+
+
+2. Additional methods:
+
+a. getGeographicPoints:
+
+This methods helps to get all locations of the intersections in the graph.
+It returns a set of locations from all intersection in the graph as GeographicPoints.
+
+b. executeSearch:
+
+For sake of simplicity, debugging, and testability, I added the method which executes the bfs.
+It takes the parameters visited (LinkedList which keeps track of visited nodes during bfs search),
+toVisit (Queue which keeps track of the nodes to visit during bfs search (FIFO)), parent (HashMap which maps the nodes and 
+their respective parent node), start (GeographicPoint which represents the start location) and goal ((GeographicPoint which represents the start location).
+It returns the HashMap parent which maps all the locations of the nodes and the location of their respective parent nodes. 
+This enables to backtrack from the goal location and to create the path of the bfs.
+
+c. pathCreation:
+
+For sake of simplicity, debugging, and testability, I added the method which creates the path of the bfs.
+It takes the parameters start (GeographicPoint which represents the start location), goal ((GeographicPoint which represents the start location) and
+and visitednodes (HashMap which is the result of the executeSearch method and includes all the nodes and their respective parent nodes based on their location).
+It returns a list of intersection that forms the shortesr path from start to goal (including both start and goal).
+
+
+
+Class name: Intersection
+
+Purpose and description of class:
+
+This class represent the vertices of the graph which are intersections between roads. This class helps to 
+store the location of the intersections and their respective neighbor nodes (member variables). This makes it easy to get the neighbors of an intersection and the overall number,
+and their locations. Further, it is easy to add new neighbors to an intersection (methods).
+
+
+Class name: Road
+
+Purpose and description of class:
+
+This class represent the edges of the graph which are streets that connect two intersections. This class helps to
+store the start and end location, the name, the type and the length of a street (member variables). This representation makes it also easy to access this data 
+by providing getter methods. 
+
+
+
